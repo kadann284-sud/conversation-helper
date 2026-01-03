@@ -51,16 +51,23 @@ function getNextQuestion(pid, tid) {
 function updateHistoryView() {
   const ul = document.getElementById("historyList");
   ul.innerHTML = "";
+
   getHistory().slice().reverse().forEach((h, i, arr) => {
     const index = arr.length - 1 - i;
+
     ul.innerHTML += `
       <li class="history-item" data-index="${index}">
-        <div class="history-main">
-          <strong>[${h.personId}] ${h.person}</strong> ／ ${h.topic}：${h.question}
+        <div class="history-content">
+          <div class="history-header">
+            <strong>${h.person}</strong>
+            <span class="topic-tag">${h.topic}</span>
+          </div>
+          <div class="history-question">${h.question}</div>
+          ${h.memo ? `<div class="history-memo">📝 ${h.memo}</div>` : ""}
         </div>
-        ${h.memo ? `<div class="history-memo">📝 ${h.memo}</div>` : ""}
         <button class="delete-btn" data-index="${index}">🗑</button>
-      </li>`;
+      </li>
+    `;
   });
 
   document.querySelectorAll(".history-item").forEach(li => {
@@ -113,7 +120,7 @@ document.getElementById("askedBtn").onclick = () => {
 
   const history = getHistory();
   history.push({
-    personId: pId,        
+    personId: pId,
     person: persons.find(p => p.id === pId).name,
     topic: topics.find(t => t.id === tId).name,
     question: q,

@@ -2,36 +2,51 @@ body {
   font-family: system-ui, sans-serif;
   max-width: 720px;
   margin: auto;
-  padding: 16px;
+  padding: 12px;
   background: #f8fafc;
 }
 
-.select-area { display: flex; gap: 8px; margin-bottom: 12px; }
-select, input { flex: 1; padding: 8px; }
+.select-area {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+select, input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+}
 
 section {
   background: white;
   padding: 12px;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  margin-bottom: 14px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .recommend {
   background: #eef6ff;
-  padding: 10px;
+  padding: 12px;
   border-left: 4px solid #3b82f6;
   font-weight: bold;
 }
 
+.btn-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 button {
-  padding: 6px 10px;
-  border-radius: 6px;
+  padding: 10px;
+  border-radius: 10px;
   border: none;
   background: #3b82f6;
   color: white;
   cursor: pointer;
-  margin-top: 6px;
 }
 
 button.sub { background: #64748b; }
@@ -40,33 +55,56 @@ button.danger { background: #ef4444; }
 textarea {
   width: 100%;
   min-height: 120px;
-  padding: 8px;
+  padding: 10px;
+  font-size: 16px;
 }
 
+/* ===== 履歴（スマホUI） ===== */
 .history-item {
-  padding: 8px;
-  margin-bottom: 6px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 12px;
   background: #f1f5f9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
 }
 
-.history-item:hover {
-  background: #e2e8f0;
+.history-content {
+  flex: 1;
+}
+
+.history-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.topic-tag {
+  background: #e0e7ff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.history-question {
+  margin-top: 6px;
+  font-size: 15px;
 }
 
 .history-memo {
-  font-size: 0.9em;
-  margin-top: 4px;
+  margin-top: 6px;
+  font-size: 13px;
   color: #475569;
 }
 
 .delete-btn {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-  background: transparent;
-  color: #ef4444;
-  font-size: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 18px;
 }
