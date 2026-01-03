@@ -1,0 +1,16 @@
+[
+  { "id": "university", "name": "大学・学校" },
+  { "id": "club", "name": "部活・サークル" },
+  { "id": "parttime", "name": "バイト・仕事" },
+  { "id": "lifestyle", "name": "生活・日常" },
+  { "id": "hobby", "name": "趣味・娯楽" },
+  { "id": "past", "name": "過去（学生時代）" },
+  { "id": "love", "name": "恋愛" },
+  { "id": "food", "name": "食べ物" },
+  { "id": "music", "name": "音楽" },
+  { "id": "travel", "name": "旅行" },
+  { "id": "personality", "name": "性格・MBTI" },
+  { "id": "fashion", "name": "服装・見た目" },
+  { "id": "family", "name": "家族・兄弟" },
+  { "id": "other", "name": "その他" }
+]

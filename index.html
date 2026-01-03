@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>会話補助サイト</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<h1>会話補助</h1>
+
+<div class="select-area">
+  <select id="groupSelect">
+    <option value="">すべての所属</option>
+    <option value="サークル">サークル</option>
+    <option value="大学">大学</option>
+    <option value="高校">高校</option>
+    <option value="中学">中学</option>
+    <option value="バイト">バイト</option>
+    <option value="その他">その他</option>
+  </select>
+
+  <input id="nameSearch" placeholder="名前検索" />
+  <select id="personSelect">
+    <option value="">相手を選択</option>
+  </select>
+</div>
+
+<section>
+  <h2>次に聞くおすすめ質問</h2>
+  <div id="nextQuestion" class="recommend">相手と話題を選んでください</div>
+  <button id="askedBtn">この質問を聞いた</button>
+  <button id="passBtn" class="sub">この質問をパス</button>
+  <button id="randomBtn">🎲 ランダムで質問</button>
+</section>
+
+<section>
+  <select id="topicSelect">
+    <option value="">話題を選択</option>
+  </select>
+</section>
+
+<section>
+  <h2>質問一覧</h2>
+  <ul id="questionList"></ul>
+</section>
+
+<section>
+  <h2>質問履歴（クリックでメモ編集）</h2>
+  <ul id="historyList"></ul>
+  <button id="resetHistoryBtn" class="danger">履歴をリセット</button>
+</section>
+
+<section>
+  <h2>相手の情報</h2>
+  <div id="personInfo">—</div>
+</section>
+
+<section>
+  <h2>自分の話せること</h2>
+  <div id="selfInfo">—</div>
+</section>
+
+<section>
+  <h2>会話ログ（メモ）</h2>
+  <textarea id="memo" placeholder="履歴クリックで編集できます"></textarea>
+</section>
+
+<script src="main.js"></script>
+</body>
+</html>
