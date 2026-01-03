@@ -40,6 +40,14 @@ function updatePersonSelect() {
     });
   updateView();
 }
+// 改行・カンマを箇条書きに変換して表示
+function formatAsList(text) {
+  if (!text) return "情報なし";
+  // カンマでも改行でも分割
+  const items = text.split(/,|\n/).map(s => s.trim()).filter(s => s);
+  if (!items.length) return "情報なし";
+  return "<ul>" + items.map(item => `<li>${item}</li>`).join("") + "</ul>";
+}
 
 function getNextQuestion(pid, tid) {
   if (!pid || !tid) return "相手と話題を選んでください";
@@ -98,8 +106,8 @@ function updateView() {
   document.getElementById("questionList").innerHTML =
     (questions[tId] || []).map(q => `<li>${q}</li>`).join("");
 
-  document.getElementById("personInfo").textContent = selected[pId]?.[tId] ?? "情報なし";
-  document.getElementById("selfInfo").textContent = selfInfo[tId] ?? "なし";
+  document.getElementById("personInfo").innerHTML = formatAsList(selected[pId]?.[tId]);
+  document.getElementById("selfInfo").innerHTML = formatAsList(selfInfo[tId]);
   document.getElementById("nextQuestion").textContent = getNextQuestion(pId, tId);
 
   updateHistoryView();
