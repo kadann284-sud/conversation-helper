@@ -10,7 +10,6 @@ body {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
 }
 
 select, input {
@@ -23,7 +22,7 @@ section {
   background: white;
   padding: 12px;
   margin-bottom: 14px;
-  border-radius: 12px;
+  border-radius: 14px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
@@ -37,7 +36,6 @@ section {
 .btn-row {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
 }
 
 button {
@@ -59,7 +57,7 @@ textarea {
   font-size: 16px;
 }
 
-/* ===== 履歴（スマホUI） ===== */
+/* ===== 履歴 ===== */
 .history-item {
   list-style: none;
   display: flex;
@@ -71,15 +69,10 @@ textarea {
   background: #f1f5f9;
 }
 
-.history-content {
-  flex: 1;
-}
-
 .history-header {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  font-size: 14px;
+  gap: 8px;
+  align-items: center;
 }
 
 .topic-tag {
@@ -89,9 +82,14 @@ textarea {
   font-size: 12px;
 }
 
+.star-btn {
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 20px;
+}
+
 .history-question {
   margin-top: 6px;
-  font-size: 15px;
 }
 
 .history-memo {
@@ -106,5 +104,4 @@ textarea {
   border-radius: 10px;
   background: #fee2e2;
   color: #b91c1c;
-  font-size: 18px;
 }
