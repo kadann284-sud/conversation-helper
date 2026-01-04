@@ -40,13 +40,12 @@ function updatePersonSelect() {
     });
   updateView();
 }
-// 改行・カンマを箇条書きに変換して表示
+
+// 改行・カンマを箇条書きに変換
 function formatAsList(text) {
   if (!text) return "情報なし";
-  // カンマでも改行でも分割
-  const items = text.split(/,|\n/).map(s => s.trim()).filter(s => s);
-  if (!items.length) return "情報なし";
-  return "<ul>" + items.map(item => `<li>${item}</li>`).join("") + "</ul>";
+  const items = text.split(/,|\n/).map(s => s.trim()).filter(Boolean);
+  return "<ul>" + items.map(i => `<li>${i}</li>`).join("") + "</ul>";
 }
 
 function getNextQuestion(pid, tid) {
@@ -56,13 +55,13 @@ function getNextQuestion(pid, tid) {
   return all.find(q => !asked.includes(q)) || "この話題は聞ききりました 👍";
 }
 
+/* ===== 履歴 ===== */
 function updateHistoryView() {
   const ul = document.getElementById("historyList");
   ul.innerHTML = "";
 
   getHistory().slice().reverse().forEach((h, i, arr) => {
     const index = arr.length - 1 - i;
-
     ul.innerHTML += `
       <li class="history-item" data-index="${index}">
         <div class="history-content">
@@ -74,8 +73,7 @@ function updateHistoryView() {
           ${h.memo ? `<div class="history-memo">📝 ${h.memo}</div>` : ""}
         </div>
         <button class="delete-btn" data-index="${index}">🗑</button>
-      </li>
-    `;
+      </li>`;
   });
 
   document.querySelectorAll(".history-item").forEach(li => {
@@ -92,8 +90,8 @@ function updateHistoryView() {
       const h = getHistory();
       h.splice(btn.dataset.index, 1);
       saveHistory(h);
-      editingHistoryIndex = null;
       memoArea.value = "";
+      editingHistoryIndex = null;
       updateHistoryView();
     };
   });
@@ -117,7 +115,7 @@ function updateView() {
 document.getElementById("askedBtn").onclick = () => {
   const tId = topicSelect.value;
   const pId = personSelect.value;
-  let q = document.getElementById("nextQuestion").textContent;
+  const q = document.getElementById("nextQuestion").textContent;
   if (!pId || !tId || q.includes("聞ききりました")) return;
 
   const asked = getAsked();
@@ -155,17 +153,40 @@ document.getElementById("passBtn").onclick = () => {
   updateView();
 };
 
+/* ===== ★ 完全ランダム（topic横断） ===== */
 document.getElementById("randomBtn").onclick = () => {
-  const t = topics[Math.floor(Math.random() * topics.length)];
-  topicSelect.value = t.id;
-  document.getElementById("nextQuestion").textContent =
-    `【${t.name}】${questions[t.id][0]}`;
+  const pId = personSelect.value;
+  if (!pId) {
+    alert("先に相手を選んでください");
+    return;
+  }
+
+  const asked = getAsked()[pId] || [];
+  const pool = [];
+
+  topics.forEach(t => {
+    (questions[t.id] || []).forEach(q => {
+      if (!(asked[t.id]?.includes(q))) {
+        pool.push({ topicId: t.id, topicName: t.name, question: q });
+      }
+    });
+  });
+
+  if (!pool.length) {
+    document.getElementById("nextQuestion").textContent =
+      "すべての質問を聞ききりました 🎉";
+    return;
+  }
+
+  const r = pool[Math.floor(Math.random() * pool.length)];
+  topicSelect.value = r.topicId;
+  document.getElementById("nextQuestion").textContent = `【${r.topicName}】${r.question}`;
+  updateView();
 };
 
 document.getElementById("resetHistoryBtn").onclick = () => {
   if (!confirm("履歴をすべて削除しますか？")) return;
-  localStorage.removeItem("history");
-  localStorage.removeItem("askedQuestions");
+  localStorage.clear();
   memoArea.value = "";
   editingHistoryIndex = null;
   updateView();
@@ -179,7 +200,9 @@ async function init() {
   selected = await loadJSON("data/selected.json");
   selfInfo = await loadJSON("data/self.json");
 
-  topics.forEach(t => topicSelect.innerHTML += `<option value="${t.id}">${t.name}</option>`);
+  topics.forEach(t => {
+    topicSelect.innerHTML += `<option value="${t.id}">${t.name}</option>`;
+  });
 
   groupSelect.onchange = updatePersonSelect;
   nameSearch.oninput = updatePersonSelect;
